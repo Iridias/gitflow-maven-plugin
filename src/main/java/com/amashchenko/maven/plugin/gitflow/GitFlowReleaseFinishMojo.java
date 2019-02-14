@@ -213,10 +213,10 @@ public class GitFlowReleaseFinishMojo extends AbstractGitFlowMojo {
                 }
             }
 
-            if (!skipTestProject) {
-                // git checkout release/...
-                gitCheckout(releaseBranch);
+            // git checkout release/...
+            gitCheckout(releaseBranch);
 
+            if (!skipTestProject) {
                 // mvn clean test
                 mvnCleanTest();
             }
