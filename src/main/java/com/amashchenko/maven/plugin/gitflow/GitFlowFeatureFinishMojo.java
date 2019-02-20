@@ -72,6 +72,9 @@ public class GitFlowFeatureFinishMojo extends AbstractGitFlowMojo {
     @Parameter(property = "featureName")
     private String featureName;
 
+    @Parameter(property = "featureRebase", defaultValue = "false")
+    private boolean featureRebase;
+
     /** {@inheritDoc} */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -124,7 +127,7 @@ public class GitFlowFeatureFinishMojo extends AbstractGitFlowMojo {
                 gitCommit(featureBranchName);
             } else {
                 // git merge --no-ff feature/...
-                gitMergeNoff(featureBranchName);
+                gitMerge(featureBranchName, featureRebase, true, false, null);
             }
 
             // get current project version from pom
