@@ -875,6 +875,16 @@ public abstract class AbstractGitFlowMojo extends AbstractMojo {
     }
 
     /**
+     * Executes <code>git pull --rebase</code> on the current branch.
+     *
+     * @throws CommandLineException
+     * @throws MojoFailureException
+     */
+    protected void gitPullRebase() throws CommandLineException, MojoFailureException {
+        executeGitCommand("pull", "--rebase");
+    }
+
+    /**
      * Executes git push, optionally with the <code>--follow-tags</code>
      * argument.
      * 

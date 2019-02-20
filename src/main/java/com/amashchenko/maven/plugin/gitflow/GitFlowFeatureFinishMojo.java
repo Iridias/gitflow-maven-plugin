@@ -157,6 +157,9 @@ public class GitFlowFeatureFinishMojo extends AbstractGitFlowMojo {
             }
 
             if (pushRemote) {
+                if(featureRebase) {
+                    gitPullRebase();
+                }
                 gitPush(gitFlowConfig.getDevelopmentBranch(), false);
 
                 if (!keepBranch) {
