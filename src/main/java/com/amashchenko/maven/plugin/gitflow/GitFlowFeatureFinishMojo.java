@@ -168,7 +168,7 @@ public class GitFlowFeatureFinishMojo extends AbstractGitFlowMojo {
             }
 
             if (!keepBranch) {
-                if (featureSquash) {
+                if (featureSquash || featureRebase) {
                     // git branch -D feature/...
                     gitBranchDeleteForce(featureBranchName);
                 } else {
