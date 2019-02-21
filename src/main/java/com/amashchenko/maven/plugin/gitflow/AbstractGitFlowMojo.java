@@ -157,6 +157,9 @@ public abstract class AbstractGitFlowMojo extends AbstractMojo {
     @Parameter(property = "additionalMergeOptions")
     protected String additionalMergeOptions;
 
+    @Parameter(property = "versionProcessAllModules", defaultValue = "false")
+    protected boolean versionProcessAllModules;
+
     /**
      * Initializes command line executables.
      * 
@@ -943,16 +946,20 @@ public abstract class AbstractGitFlowMojo extends AbstractMojo {
 
         String g = "";
         String a = "";
+        String allModules = "";
         if (versionsForceUpdate) {
             g = "-DgroupId=";
             a = "-DartifactId=";
+        }
+        if(versionProcessAllModules) {
+            allModules = "-DprocessAllModules=true";
         }
 
         if (tychoBuild) {
             executeMvnCommand(TYCHO_VERSIONS_PLUGIN_SET_GOAL, "-DnewVersion="
                     + version, "-Dtycho.mode=maven");
         } else {
-            executeMvnCommand(VERSIONS_MAVEN_PLUGIN_SET_GOAL, g, a, "-DnewVersion="
+            executeMvnCommand(VERSIONS_MAVEN_PLUGIN_SET_GOAL, g, a, allModules, "-DnewVersion="
                     + version, "-DgenerateBackupPoms=false");
         }
     }
