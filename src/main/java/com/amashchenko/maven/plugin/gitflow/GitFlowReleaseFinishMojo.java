@@ -165,6 +165,13 @@ public class GitFlowReleaseFinishMojo extends AbstractGitFlowMojo {
     @Parameter(property = "devBranchMergeOptions")
     private String devBranchMergeOptions;
 
+    /**
+     * Whether to skip merging into the development branch.
+     *
+     */
+    @Parameter(property = "skipMergeDevBranch", defaultValue = "false")
+    private boolean skipMergeDevBranch = false;
+
     /** {@inheritDoc} */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -269,10 +276,10 @@ public class GitFlowReleaseFinishMojo extends AbstractGitFlowMojo {
                 mvnRun(postReleaseGoals);
             }
 
-            if (notSameProdDevName()) {
-                // git checkout develop
-                gitCheckout(gitFlowConfig.getDevelopmentBranch());
-
+            // git checkout develop
+            gitCheckout(gitFlowConfig.getDevelopmentBranch());
+            
+            if (notSameProdDevName() && !skipMergeDevBranch) {
                 // get develop version
                 final String developReleaseVersion = getCurrentProjectVersion();
                 if (commitDevelopmentVersionAtStart && useSnapshotInRelease) {
