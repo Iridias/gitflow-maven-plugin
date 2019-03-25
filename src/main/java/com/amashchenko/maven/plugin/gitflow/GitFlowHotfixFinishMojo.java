@@ -302,9 +302,11 @@ public class GitFlowHotfixFinishMojo extends AbstractGitFlowMojo {
                     gitPush(gitFlowConfig.getProductionBranch(), !skipTag);
 
                     if (StringUtils.isNotBlank(releaseBranch)) {
+                        gitPull(releaseBranch); // in case the remote-branch has been updated in the meantime
                         gitPush(releaseBranch, !skipTag);
                     } else if (StringUtils.isBlank(releaseBranch)
                             && notSameProdDevName()) { // if no release branch
+                        gitPull(gitFlowConfig.getDevelopmentBranch()); // in case the remote-branch has been updated in the meantime
                         gitPush(gitFlowConfig.getDevelopmentBranch(), !skipTag);
                     }
                 }

@@ -348,6 +348,7 @@ public class GitFlowReleaseFinishMojo extends AbstractGitFlowMojo {
             if (pushRemote) {
                 gitPush(gitFlowConfig.getProductionBranch(), !skipTag);
                 if (notSameProdDevName()) {
+                    gitPull(gitFlowConfig.getDevelopmentBranch()); // in case the remote-branch has been updated in the meantime
                     gitPush(gitFlowConfig.getDevelopmentBranch(), !skipTag);
                 }
 

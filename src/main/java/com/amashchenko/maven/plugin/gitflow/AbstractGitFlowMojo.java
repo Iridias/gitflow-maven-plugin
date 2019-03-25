@@ -886,7 +886,19 @@ public abstract class AbstractGitFlowMojo extends AbstractMojo {
     protected void gitPullRebase() throws CommandLineException, MojoFailureException {
         executeGitCommand("pull", "--rebase");
     }
-
+    
+    /**
+     * Checkout the specified branch and then do a <code>git pull</code>.
+     *
+     * @param branchName
+     * @throws CommandLineException
+     * @throws MojoFailureException
+     */
+    protected void gitPull(final String branchName) throws CommandLineException, MojoFailureException {
+        gitCheckout(branchName);
+        executeGitCommand("pull");
+    }
+    
     /**
      * Executes git push, optionally with the <code>--follow-tags</code>
      * argument.
