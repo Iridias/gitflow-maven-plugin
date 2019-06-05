@@ -241,6 +241,7 @@ public class GitFlowHotfixFinishMojo extends AbstractGitFlowMojo {
                     // git checkout release
                     gitCheckout(releaseBranch);
                     String releaseBranchVersion = getCurrentProjectVersion();
+                    getLog().info("releaseBranchVersion: " +releaseBranchVersion + " | 'currentVersion': " + currentVersion);
 
                     if (!currentVersion.equals(releaseBranchVersion)) {
                         // set version to avoid merge conflict
