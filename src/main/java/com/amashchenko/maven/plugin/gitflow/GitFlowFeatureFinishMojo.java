@@ -127,7 +127,7 @@ public class GitFlowFeatureFinishMojo extends AbstractGitFlowMojo {
                 gitCommit(featureBranchName);
             } else {
                 // git merge --no-ff feature/...
-                gitMerge(featureBranchName, featureRebase, true, false, null);
+                gitMerge(featureBranchName, featureRebase, true, false, null, null);
             }
 
             // get current project version from pom
